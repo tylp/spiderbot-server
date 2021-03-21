@@ -1,3 +1,5 @@
+const { socketRouting } = require("./routes/socketRouting");
+
 const app = require("express")();
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
@@ -12,10 +14,7 @@ const dev = process.env.NODE_ENV !== "production";
 
 // socket.io server
 io.on("connection", socket => {
-    socket.on("hello-room", data => {
-        console.log({ data });
-        socket.emit("hello-room", data);
-    });
+    socketRouting(socket);
 });
 
 // on change app par server
