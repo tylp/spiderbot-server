@@ -1,4 +1,4 @@
-const Gpio = require('onoff').Gpio;
+const Gpio = require('pigpio').Gpio;
 
 function socketRouting(socket) {
 
@@ -6,8 +6,8 @@ function socketRouting(socket) {
         console.log({ data });
         socket.emit("servo-control-topic", data);
 
-        const servo = new Gpio(12, 'out');
-        servo.write(20);
+        const servo = new Gpio(12, {mode: Gpio.OUTPUT})
+        servo.servoWrite(data.value);
     });
 
 }
